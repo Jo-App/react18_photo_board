@@ -1,0 +1,29 @@
+.item {
+  border: 1px solid gray;
+  text-align: center;
+  line-height: 0;
+  padding: 10px;
+}
+.item:hover {
+  background-color: #e9ecef;
+  opacity: 0.7;
+}
+/* .item img {
+  opacity: 0;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  transition: opacity 1s linear;
+} */
+.loadingBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+.item .loaded {
+  opacity: 1;
+}
+.hoverNone {
+  pointer-events: none;
+}
