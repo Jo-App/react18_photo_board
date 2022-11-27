@@ -3,13 +3,22 @@ import styles from '../styles/List.module.css';
 import Loading from './layout/Loading';
 import { useQuery } from '@tanstack/react-query';
 import Item from './Item';
+import Paginations from './Paginations';
+import { useBoardApi } from '../context/BoardApiContext';
 
 export default function List() {
-  //const { isError, isLoading, data: resultList } = useQuery(['videos', keyword], () => youtube.search(keyword));
-  const [ resultList, setResultList ] = useState(dataSet);
+  //const [ resultList, setResultList ] = useState(dataSet);
+  const { board } = useBoardApi();
+  const {
+    isLoading,
+    error,
+    data,
+  } = useQuery(['board', 1], () => board.getPhotoList());
+
   return (
     <>
       <div className={styles.title}>
+        <h3>photos</h3>
         {/* <h3>photos {{ isLoading }}</h3> */}
       </div>
       {/* { 
@@ -26,7 +35,8 @@ export default function List() {
         <div className={styles.wrapper}>
           <div className={styles.container}>
             {
-              resultList.map((item, index) => {
+              data && 
+              data.map((item, index) => {
                 return (<Item key={item.id} item={item}></Item>);
               })
             }
@@ -38,6 +48,10 @@ export default function List() {
           @getPhotoList='getPhotoList'
           ref='childPaginations'
         ></Paginations> */}
+        <Paginations
+          className={styles.paginations}
+          totalCount={1000}
+        ></Paginations>
       </div>
     </>
   );

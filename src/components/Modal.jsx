@@ -18,7 +18,7 @@ export default function Modal() {
                   className={styles.closeBtn}
                   onClick={()=>closeModal()}
                 >X</div>
-                <Item key={item.id} item={item}></Item>
+                {/* <Item key={item.id} item={item}></Item> */}
               </div>
             </div>
           </div>
