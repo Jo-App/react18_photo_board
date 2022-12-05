@@ -3,11 +3,11 @@ export default class Board {
     this.apiClient = apiClient;
   }
 
-  async getPhotoList() {
+  async getPhotoList(page, limit) {
     return this.apiClient.getPhotoList({
       params: {
-        page: 10,
-        limit: 10
+        page,
+        limit
       }
     })
     .then((res) => res.data);

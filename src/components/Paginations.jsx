@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styles from '../styles/Page.module.css';
 import { useImmer } from 'use-immer';
+import { useQuery } from '@tanstack/react-query';
+import { BoardApiContext, useBoardApi, setIsLoading, setError, setData } from '../context/BoardApiContext';
 
 export default function Paginations({totalCount}) {
+  const { setIsLoading, setError, setData } = useContext(BoardApiContext);
+
   const [pageList, setPageList] = useImmer([]);
   const [totalPage, setTotalPage] = useState(0);
   const [pageGroupCount, setPageGroupCount] = useState(10);
@@ -14,9 +18,16 @@ export default function Paginations({totalCount}) {
   const [next, setNext] = useState(0);
   const [start, setStart] = useState(0);
 
+  const { board } = useBoardApi();
+  const {
+    isLoading,
+    error,
+    data,
+  } = useQuery(['board', currentPage], () => board.getPhotoList(currentPage ,10));
+
   const movePage = (page) => {
+    console.log(page)
     renderPagination(totalCount, page);
-    
   }
   
   const renderPagination = (totalCount, cPage) => {
@@ -45,8 +56,11 @@ export default function Paginations({totalCount}) {
   }
 
   useEffect(() => {
-    movePage(1);
-  },[]);
+    setIsLoading(isLoading);
+    setError(error);
+    setData(data);
+    movePage(currentPage);
+  },[isLoading, error, data]);
 
   return (
     <ul>
