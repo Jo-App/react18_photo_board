@@ -15,10 +15,15 @@ export default function List() {
         <h3>photos</h3>
       </div>
       <div>
+        { 
+          isLoading &&
+          <div className={styles.loading}>
+            <Loading></Loading> 
+          </div>
+        }
         <div className={styles.wrapper}>
           <div className={styles.container}>
             { error && <p>{JSON.stringify(error.message)}</p> }
-            { isLoading && <Loading></Loading> }
             {
               data && 
               data.map((item, index) => {
