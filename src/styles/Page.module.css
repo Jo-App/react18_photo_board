@@ -31,7 +31,7 @@ span:hover {
   background-color: #e9ecef;
   opacity: 0.7;
 }
-.active >>> span {
+.active span {
   background-color: teal;
   border-color: #dee2e6;
   color: white;

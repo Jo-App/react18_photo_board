@@ -29,7 +29,7 @@ export default function Item({item}) {
         className={ `${styles.item} ${loaded ? styles.loaded : ''}` }
         onClick={()=>openModal(item.id)}
       >
-        <img className={ `${'w-full'} ` } ref={ref} onLoad={onLoad} src={item.download_url}  />
+        <img className={styles.itemImg} ref={ref} onLoad={onLoad} src={item.download_url}  />
         { 
           !loaded &&
           <div className={styles.loadingBar}>

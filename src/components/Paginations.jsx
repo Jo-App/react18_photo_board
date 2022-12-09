@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useLayoutEffect } from 'react';
 import styles from '../styles/Page.module.css';
 import { useImmer } from 'use-immer';
 import { useQuery } from '@tanstack/react-query';
-import { BoardApiContext, useBoardApi, setIsLoading, setError, setData } from '../context/BoardApiContext';
+import { BoardApiContext, useBoardApi } from '../context/BoardApiContext';
 
 export default function Paginations({totalCount}) {
   const { setIsLoading, setError, setData } = useContext(BoardApiContext);
-
   const [pageList, setPageList] = useImmer([]);
   const [totalPage, setTotalPage] = useState(0);
   const [pageGroupCount, setPageGroupCount] = useState(10);
@@ -25,11 +24,21 @@ export default function Paginations({totalCount}) {
     data,
   } = useQuery(['board', currentPage], () => board.getPhotoList(currentPage ,10));
 
+  useEffect(() => {
+    movePage(currentPage);
+  },[totalPage, currentPage, last, first])
+
+  useEffect(() => {
+    setIsLoading(isLoading);
+    setError(error);
+    setData(data);
+  },[isLoading, error, data]);
+
   const movePage = (page) => {
-    console.log(page)
+    //console.log('movePage')
     renderPagination(totalCount, page);
   }
-  
+
   const renderPagination = (totalCount, cPage) => {
     if (totalCount <= pageGroupCount) return;
     setTotalPage(Math.ceil(totalCount / limit));
@@ -49,18 +58,14 @@ export default function Paginations({totalCount}) {
   }
 
   const prePage = () => {
-
+    setFirst(first - pageGroupCount);
+    if (first < 0) first = 1;
+    renderPagination(totalCount, first - pageGroupCount);
   }
   const nextPage = () => {
-
+    setLast(last + 1);
+    renderPagination(totalCount, last+1);
   }
-
-  useEffect(() => {
-    setIsLoading(isLoading);
-    setError(error);
-    setData(data);
-    movePage(currentPage);
-  },[isLoading, error, data]);
 
   return (
     <ul>
@@ -71,9 +76,10 @@ export default function Paginations({totalCount}) {
         </li>
       }
       { 
+        pageList &&
         pageList.map((page, index) => {
           return (
-            <li 
+            <li
               key={index}
               className={`${page === currentPage ? styles.active : ''}`}
               onClick={()=>movePage(page)}
