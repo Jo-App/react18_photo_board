@@ -74,7 +74,6 @@ export default function Paginations({totalCount}) {
 
   return (
     <ul>
-      {limit}
       {
         prev > 0 &&
         <li onClick={()=>prePage()}>

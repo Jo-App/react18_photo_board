@@ -12,4 +12,9 @@ export default class Board {
     })
     .then((res) => res.data);
   }
+
+  async getPhotoDetail(id) {
+    return this.apiClient.getPhotoDetail(id)
+    .then((res) => res.data);
+  }
 }

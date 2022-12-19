@@ -10,14 +10,14 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <>
-      <ModalProvider>
-        <BoardApiProvier>
-          <QueryClientProvider client={queryClient}>
+      <BoardApiProvier>
+        <QueryClientProvider client={queryClient}>
+          <ModalProvider>
             <List></List>
-          </QueryClientProvider>
-        </BoardApiProvier>
-        <Modal></Modal>
-      </ModalProvider>
+            <Modal></Modal>
+          </ModalProvider>
+        </QueryClientProvider>
+      </BoardApiProvier>
     </>
   );
 }

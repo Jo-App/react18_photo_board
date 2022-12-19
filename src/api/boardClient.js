@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = "https://picsum.photos/v2/list";
+const API_URL = "https://picsum.photos";
 
 export default class BoardClient {
   constructor() {
@@ -8,6 +8,10 @@ export default class BoardClient {
     })
   };
   async getPhotoList(params) {
-    return this.httpClient.get('', params);
+    return this.httpClient.get('/v2/list', params);
+  }
+  async getPhotoDetail(id) {
+    console.log(id)
+    return this.httpClient.get(`/id/`+id+`/info`);
   }
 }
