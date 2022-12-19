@@ -5,24 +5,22 @@ import { useQuery } from '@tanstack/react-query';
 import { BoardApiContext, useBoardApi } from '../context/BoardApiContext';
 
 export default function Paginations({totalCount}) {
-  const { setIsLoading, setError, setData } = useContext(BoardApiContext);
+  const { setIsLoading, setError, setData, limit } = useContext(BoardApiContext);
   const [pageList, setPageList] = useImmer([]);
   const [totalPage, setTotalPage] = useState(0);
   const [pageGroupCount, setPageGroupCount] = useState(10);
-  const [limit, setLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [first, setFirst] = useState(0);
   const [last, setLast] = useState(0);
   const [prev, setPrev] = useState(0);
   const [next, setNext] = useState(0);
-  const [start, setStart] = useState(0);
 
   const { board } = useBoardApi();
   const {
     isLoading,
     error,
     data,
-  } = useQuery(['board', currentPage], () => board.getPhotoList(currentPage ,10));
+  } = useQuery(['board', currentPage, limit], () => board.getPhotoList(currentPage ,limit), { keepPreviousData : true });
 
   useEffect(() => {
     movePage(currentPage);
@@ -34,8 +32,15 @@ export default function Paginations({totalCount}) {
     setData(data);
   },[isLoading, error, data]);
 
+  // useEffect(() => {
+  //   setPageList([]);
+  //   movePage(currentPage);
+  //   setIsLoading(isLoading);
+  //   setError(error);
+  //   setData(data);
+  // }, [limit])
+
   const movePage = (page) => {
-    //console.log('movePage')
     renderPagination(totalCount, page);
   }
 
@@ -69,6 +74,7 @@ export default function Paginations({totalCount}) {
 
   return (
     <ul>
+      {limit}
       {
         prev > 0 &&
         <li onClick={()=>prePage()}>

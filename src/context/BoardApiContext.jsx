@@ -10,9 +10,10 @@ export function BoardApiProvier({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState([]);
+  const [limit, setLimit] = useState(10);
 
   return (
-    <BoardApiContext.Provider value={{ board, isLoading, setIsLoading, error, setError, data, setData }}>
+    <BoardApiContext.Provider value={{ board, isLoading, setIsLoading, error, setError, data, setData, limit, setLimit }}>
       {children}
     </BoardApiContext.Provider>
   );
