@@ -17,19 +17,25 @@ const useImageLoaded = () => {
     }
   })
 
-  return [ref, loaded, onLoad]
+  return [ref, loaded, onLoad];
 }
 
-export default function Item({item}) {
+export default function Item({item, wSize, useModal}) {
   const { openModal } = useContext(ModalContext);
   const [ ref, loaded, onLoad ] = useImageLoaded();
   return (
     <>
       <div
-        className={ `${styles.item} ${loaded ? styles.loaded : ''}` }
+        className={ `${styles.item} ${loaded ? styles.loaded : ''} ${useModal ? styles.hoverNone : ''}` }
         onClick={()=>openModal(item.id)}
       >
-        <img className={styles.itemImg} ref={ref} onLoad={onLoad} src={item.download_url}  />
+        <img 
+          className={`${useModal ? styles.itemModalImg : styles.itemImg}`}
+          ref={ref} 
+          onLoad={onLoad} 
+          src={item.download_url}
+          style={{width: wSize}}
+        />
         { 
           !loaded &&
           <div className={styles.loadingBar}>

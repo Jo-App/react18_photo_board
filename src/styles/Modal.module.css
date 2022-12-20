@@ -27,6 +27,7 @@
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
   max-width: 90vh;
+  min-width: 800px;
 }
 .modalHeader {
   display: flex;
@@ -45,4 +46,10 @@
 .stopScroll {
   height: 100%;
   overflow: hidden;
+}
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 580px;
 }

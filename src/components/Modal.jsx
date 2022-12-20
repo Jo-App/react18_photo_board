@@ -4,6 +4,7 @@ import Item from './Item';
 import { ModalContext } from './../context/ModalContext';
 import { useQuery } from '@tanstack/react-query';
 import { BoardApiContext, useBoardApi } from '../context/BoardApiContext';
+import Loading from './layout/Loading';
 
 export default function Modal() {
   const { modal, closeModal, id } = useContext(ModalContext);
@@ -14,7 +15,6 @@ export default function Modal() {
     data,
   } = useQuery(['photoDetail', id], () => board.getPhotoDetail(id));
 
-  console.log(data)
   return (
     <>
       {
@@ -28,12 +28,17 @@ export default function Modal() {
                   className={styles.closeBtn}
                   onClick={()=>closeModal()}
                 >X</div>
-                {/* <div style={{width:'500px', height:'500px'}}></div> */}
+              </div>
+                { 
+                  isLoading &&
+                  <div className={styles.loading}>
+                    <Loading></Loading> 
+                  </div>
+                }
                 {
                   data &&
-                  <Item key={Number(data.id)} item={data}></Item>
+                  <Item key={Number(data.id)} item={data} wSize={800} useModal={true}></Item>
                 }
-              </div>
             </div>
           </div>
         </div>

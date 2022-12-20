@@ -39,7 +39,7 @@ export default function List() {
             {
               data && 
               data.map((item) => {
-                return (<Item key={item.id} item={item}></Item>);
+                return (<Item key={item.id} item={item} ></Item>);
               })
             }
           </div>
