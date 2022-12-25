@@ -32,14 +32,6 @@ export default function Paginations({totalCount}) {
     setData(data);
   },[isLoading, error, data]);
 
-  // useEffect(() => {
-  //   setPageList([]);
-  //   movePage(currentPage);
-  //   setIsLoading(isLoading);
-  //   setError(error);
-  //   setData(data);
-  // }, [limit])
-
   const movePage = (page) => {
     renderPagination(totalCount, page);
   }
