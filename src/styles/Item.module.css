@@ -6,6 +6,7 @@
   position: relative;
   height: auto;
   min-height: 250px;
+  min-width: 300px;
 }
 .item:hover {
   background-color: #e9ecef;

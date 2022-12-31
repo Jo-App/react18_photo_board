@@ -11,6 +11,7 @@
   color: white;
   background: teal;
   z-index: 1;
+  min-width: 340px;
 }
 .wrapper {
   position: relative;

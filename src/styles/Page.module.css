@@ -13,6 +13,15 @@ li {
   display: flex;
   cursor: pointer;
 }
+@media screen and (max-width:500px) {
+  /* 모바일 */
+  li {
+    width: 30px;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+  }
+  }
 span {
   border: none;
   border: 1px solid #dee2e6;
