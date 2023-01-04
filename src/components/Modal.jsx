@@ -36,6 +36,9 @@ export default function Modal() {
                   </div>
                 }
                 {
+                  error && <div>ERROR!</div>
+                }
+                {
                   data &&
                   <Item key={Number(data.id)} item={data} wSize={800} useModal={true}></Item>
                 }
